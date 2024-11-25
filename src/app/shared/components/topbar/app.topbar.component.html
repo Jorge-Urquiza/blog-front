@@ -1,0 +1,39 @@
+<div class="layout-topbar">
+    <div class="topbar-start">
+        <button #menubutton type="button" class="topbar-menubutton p-link p-trigger transition-duration-300"
+            (click)="onMenuButtonClick()">
+            <i class="pi pi-bars"></i>
+        </button>
+    </div>
+    <div class="layout-topbar-menu-section">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="topbar-end" class=" mr-2">
+        <ul class="topbar-menu">
+            <li class="topbar-item">
+                <a pStyleClass="@next" enterClass="ng-hidden" enterActiveClass="px-scalein" leaveToClass="ng-hidden"
+                    leaveActiveClass="px-fadeout" [hideOnOutsideClick]="true" pRipple class="cursor-pointer">
+                    <p-avatar icon="pi pi-user" [style]="{ 'background-color': '#ffffff', color: '#ff810e' }"
+                        size="large" />
+                </a>
+                <ul *ngFor="let menuItem of menuItems"
+                    [class]="'topbar-menu active-topbar-menu p-4 w-15rem z-5 ng-hidden'">
+                    <li *ngFor="let item of menuItem.items; let isLast = last" role="menuitem" class="m-0 cursor-pointer">
+                        <a role="button" (click)="item?.command({originalEvent:$event})"
+                            class="flex align-items-center hover:text-primary-500 transition-duration-200 {{ !isLast && 'mb-3'}}"
+                            pStyleClass="@grandparent" enterClass="ng-hidden" enterActiveClass="px-scalein"
+                            leaveToClass="ng-hidden" leaveActiveClass="px-fadeout">
+                            <i [class]="item?.icon"></i>
+                            <span>{{ item?.label }}</span>
+                            <p-confirmPopup key="confirmLogout"></p-confirmPopup>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- <p-menu #menu [model]="menuItems" [popup]="true" />
+        <p-button (onClick)="menu.toggle($event)" icon="pi pi-user"
+            [style]="{ 'background-color': '#ffffff', color: '#ff810e' }" size="large" />
+        <p-confirmPopup key="confirmLogout"></p-confirmPopup> -->
+    </div>
+</div>

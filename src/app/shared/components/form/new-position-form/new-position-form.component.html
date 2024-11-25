@@ -1,0 +1,30 @@
+<div>
+    <button pButton pRipple type="button" class="p-button-text w-auto mt-3 field" *ngIf="!isAdding"
+        label="Agregar cargo" icon="pi pi-plus-circle" (click)="handleShowFormButtonClick()" [disabled]="disabled"></button>
+</div>
+
+<ng-container *ngIf="isAdding">
+    <form [formGroup]="form" (ngSubmit)="handleFormSubmit()" class="mt-3">
+        <p-toolbar styleClass="block field">
+            <label for="name">Nuevo cargo*</label>
+            <input formControlName="name" id="name" pInputText class="p-inputtext-sm text-color-secondary"
+                placeholder="Ingrese nuevo cargo" />
+
+            <small class="p-error" *ngIf="hasError('name', 'required')">
+                Campo obligatorio
+            </small>
+            <small class="p-error" *ngIf="hasError('name', 'pattern')">
+                Solo permite caracteres alfabéticos
+            </small>
+            <small class="p-error" *ngIf="hasError('name', 'maxlength')">
+                Longitud máxima de 50 caracteres
+            </small>
+            <div class="flex w-full gap-3 justify-content-end mt-3">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times-circle" class="p-button-text w-auto"
+                    (click)="handleCancelButtonClick()"></button>
+                <button pButton pRipple label="Agregar cargo" [loading]="isLoading" [disabled]="form.invalid"
+                    class="w-auto" type="submit"></button>
+            </div>
+        </p-toolbar>
+    </form>
+</ng-container>

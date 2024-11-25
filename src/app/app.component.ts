@@ -1,0 +1,82 @@
+import { Component } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+})
+export class AppComponent {
+  constructor(private primengConfig: PrimeNGConfig) {}
+  ngOnInit(): void {
+    this.primengConfig.ripple = true;
+    this.primengConfig.setTranslation({
+      firstDayOfWeek: 1,
+      emptyFilterMessage: 'No se encontraron resultados',
+      emptyMessage: 'No se encontraron resultados',
+      selectionMessage: '{0} elementos seleccionados',
+      emptySelectionMessage: 'Ningún elemento seleccionado',
+      searchMessage: '{0} resultados encontrados',
+      emptySearchMessage: 'No se encontraron resultados',
+      weekHeader: 'Semana',
+      chooseYear: 'Elija un año',
+      chooseMonth: 'Elija un mes',
+      chooseDate: 'Elija una fecha',
+      prevDecade: 'Década anterior',
+      nextDecade: 'Década siguiente',
+      prevYear: 'Año anterior',
+      nextYear: 'Año siguiente',
+      prevMonth: 'Mes anterior',
+      nextMonth: 'Mes siguiente',
+      prevHour: 'Hora anterior',
+      nextHour: 'Hora siguiente',
+      prevMinute: 'Minuto anterior',
+      nextMinute: 'Minuto siguiente',
+      prevSecond: 'Segundo anterior',
+      nextSecond: 'Segundo siguiente',
+      am: 'am',
+      pm: 'pm',
+      today: 'Hoy',
+      clear: 'Limpiar',
+      dateFormat: 'dd/mm/yy',
+      dayNames: [
+        'Domingo',
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+      ],
+      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+      dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+      monthNames: [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ],
+      monthNamesShort: [
+        'Ene',
+        'Feb',
+        'Mar',
+        'Abr',
+        'May',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dic',
+      ],
+    });
+  }
+}

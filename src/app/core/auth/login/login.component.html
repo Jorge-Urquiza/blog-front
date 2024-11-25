@@ -1,0 +1,60 @@
+<p-toast></p-toast>
+<div>
+    <div class="grid m-0">
+        <div class="col-0 md:col-8 p-0 m-0 h-screen flex flex-column align-items-center justify-content-center">
+            <img class="login-img" src="assets/demo/images/auth/login-blog.jpg" alt="Foto de portada">
+            <!-- <img class="col-0 login-img-overlay" src="assets/logo/logo-workmate-white.png"
+                alt="Foto de portada"> -->
+        </div>
+
+        <div class="col-12 md:col-4 h-screen flex flex-column align-items-center justify-content-center">
+            <div class="card text-center p-fluid w-full md:w-9">
+
+                <img class="login-logo my-6 max-w-10rem" src="assets/logo/logo-PGT-login-dark.png"
+                    alt="Logo Workmate" />
+                <div class="text-900 text-xl font-bold mb-4">Bienvenido(a)</div>
+
+                <form [formGroup]="loginForm" (ngSubmit)="handleFormSubmit()" class="text-left">
+
+                    <!-- Email -->
+                    <div class="field">
+                        <label for="email">Correo electrónico</label>
+                        <span class="p-input-icon-left mb-1">
+                            <i class="pi pi-user"></i>
+                            <input id="email" type="text" pInputText placeholder="Correo electrónico"
+                                formControlName="email" />
+                        </span>
+                        <small class="ng-dirty ng-invalid p-error" *ngIf="hasError(email, 'required')">Campo
+                            obligatorio</small>
+                        <small class="ng-dirty ng-invalid p-error" *ngIf="hasError(email, 'email')">Correo no
+                            válido</small>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field">
+                        <label for="password">Contraseña</label>
+                        <span class="field p-input-icon-left p-input-icon-right mb-1">
+                            <i class="pi pi-lock z-2"></i>
+                            <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" pInputText
+                                placeholder="Contraseña" formControlName="password" />
+                            <i class="pi {{isPasswordVisible ? 'pi-eye-slash' : 'pi-eye'}}"
+                                (click)="togglePasswordVisibility()"></i>
+                        </span>
+                        <small class="ng-dirty ng-invalid p-error" *ngIf="hasError(password, 'required')">Campo
+                            obligatorio</small>
+                    </div>
+
+
+                    <div class="text-center my-4">
+                        <a href="#" [routerLink]="['/auth/password-reset']"
+                            class="font-medium text-sm text-300">¿Olvidaste
+                            tu contraseña?</a>
+                    </div>
+
+                    <button pButton pRipple label="Ingresar" type="submit" lo [disabled]="isLoading"
+                        [loading]="isLoading"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

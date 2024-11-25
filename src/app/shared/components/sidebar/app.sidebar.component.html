@@ -1,0 +1,13 @@
+<div class="layout-sidebar" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div class="sidebar-header">
+        <a [routerLink]="['/']" class="app-logo cursor-pointer">
+            <img src="../../../../assets/logo/logo-PGT-dark.png" class="app-logo-normal">
+            <img src="../../../../assets/favicon/favicon-PGT-dark.ico" class="app-logo-single">
+        </a>
+        <button class="layout-sidebar-anchor p-link" type="button" (click)="anchor()"></button>
+    </div>
+
+    <div #menuContainer class="layout-menu-container">
+        <app-menu></app-menu>
+    </div>
+</div>
