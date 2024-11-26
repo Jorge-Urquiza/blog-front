@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@core/guards/auth.guard';
+// import { AuthGuard } from '@core/guards/auth.guard';
 import { AppLayoutComponent } from '@shared/components/layout/app.layout.component';
 
 const routerOptions: ExtraOptions = {
@@ -16,21 +16,20 @@ const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
-    canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'blogs',
-      //   data: {
-      //     breadcrumb: { icon: 'pi pi-fw pi-home', label: 'Trabajadores(as)' }
-      //   },
-      //   loadChildren: () =>
-      //     import('@modules/professionals/professionals.module').then(
-      //       (m) => m.ProfessionalsModule
-      //     ),
-      // },
+      {
+        path: 'posts',
+        data: {
+          breadcrumb: { icon: 'pi pi-fw pi-home', label: 'Listado de posts' }
+        },
+        loadChildren: () =>
+          import('@modules/posts/posts.module').then(
+            (m) => m.PostsModule
+          ),
+      },
       {
         path: '**',
-        redirectTo: 'blogs',
+        redirectTo: 'posts',
       },
     ],
   },

@@ -87,6 +87,6 @@ export class LoginComponent {
   }
 
   redirectHomePage() {
-    this.router.navigate(['/blogs']);
+    this.router.navigate(['/posts']);
   }
 }

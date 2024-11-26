@@ -7,6 +7,7 @@ import { AppTopbarComponent } from '../topbar/app.topbar.component';
 import { LayoutService } from './app.layout.service';
 
 @Component({
+  standalone: false,
   selector: 'app-layout',
   templateUrl: './app.layout.component.html',
 })

@@ -1,0 +1,32 @@
+<div class="card">
+  <p-dataView #dv [value]="totalPosts" [paginator]="true" [rows]="6" layout="grid">
+    <ng-template pTemplate="header">
+
+      <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between gap-3">
+
+        <span class="text-xl text-900 font-semibold">Posts</span>
+        <p-dropdown
+          [options]="sortOptions"
+          [(ngModel)]="sortField"
+          placeholder="Ordenar por"
+          styleClass="w-full md:w-15rem"
+        ></p-dropdown>
+        <!-- <div class="flex justify-content-end">
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div> -->
+      </div>
+      <!-- <div class="flex justify-content-end mt-3">
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div> -->
+
+    </ng-template>
+
+    <ng-template let-posts pTemplate="gridItem">
+      <div class="grid grid-nogutter">
+        <div class="col-12 md:col-4" *ngFor="let post of posts">
+          <app-list-card-post [post]="post"></app-list-card-post>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
