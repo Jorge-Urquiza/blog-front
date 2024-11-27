@@ -1,0 +1,59 @@
+<div class="card">
+  <p-dataView #dv [value]="totalPosts" [paginator]="true" [rows]="6" layout="grid">
+    <ng-template pTemplate="header">
+
+      <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between gap-3">
+        <span class="text-xl text-900 font-semibold">Posts</span>
+        <div class="flex flex-row-reverse flex-wrap">
+          <button pButton pRipple label="Crear post"
+            (click)="handleCreatePost()"
+            class="p-button-primary px-6" icon="pi pi-plus" iconPos="right">
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <form [formGroup]="filterForm" (ngSubmit)="onSearch()">
+          <p-toolbar styleClass="mb-4 flex justify-content-between">
+              <span class="flex flex-wrap gap-3">
+                  <div class="flex flex-column">
+                    <p-multiSelect class="multiselect-custom"
+                      formControlName="categories"
+                      placeholder="Seleccionar categoria"
+                      selectedItemsLabel="{0} elementos seleccionados"
+                      inputId="categories"
+                      [options]="categories"
+                      optionLabel="name"
+                      [filter]="false"
+                      [showClear]="true">
+                    </p-multiSelect>
+                  </div>
+                  <p-multiSelect class="multiselect-custom"
+                    formControlName="tags"
+                    placeholder="Seleccionar etiquetas"
+                    selectedItemsLabel="{0} elementos seleccionados"
+                    inputId="tags"
+                    [options]="tags"
+                    optionLabel="name"
+                    [filter]="false"
+                    [showClear]="true">
+                  </p-multiSelect>
+              </span>
+              <button pButton pRipple type="submit" label="Buscar" class="p-button-primary px-6"
+                  [loading]="false"></button>
+          </p-toolbar>
+        </form>
+      </div>
+
+
+    </ng-template>
+
+    <ng-template let-posts pTemplate="gridItem">
+      <div class="grid grid-nogutter">
+        <div class="col-12 md:col-4" *ngFor="let post of posts">
+          <app-list-card-post [post]="post"></app-list-card-post>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

@@ -6,6 +6,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { DataViewModule } from 'primeng/dataview';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -61,6 +62,7 @@ const PRIME_MODULES = [
   ButtonModule,
   DialogModule,
   DropdownModule,
+  DataViewModule,
   DynamicDialogModule,
   FileUploadModule,
   InputNumberModule,
@@ -97,7 +99,7 @@ const PRIME_MODULES = [
   TabMenuModule,
   ChartModule,
   ProgressBarModule,
-  MenubarModule,
+  MenubarModule
 ];
 
 @NgModule({

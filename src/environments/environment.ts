@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://dev-api.techblog.dev',
-  basePath:'https://dev.techblog.dev',
+  apiUrl: 'http://localhost:8787/api',
+  basePath:'http://localhost:8787/api',
   bucketS3: 'blog-front-dev',
   version:'v1.0.0'
 };
