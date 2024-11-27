@@ -60,7 +60,7 @@ export class PostsComponent implements OnInit {
       tags: [[]],
     });
     this.loadFilterData();
-    this.getPostsWithFilters([1], [1]);
+    this.getPostsWithFilters([], []);
   }
 
   private loadFilterData(): void{
@@ -86,15 +86,26 @@ export class PostsComponent implements OnInit {
     this.getPostsWithFilters([1], [1]);
   }
   private getPostsWithFilters(categories: number[], tags: number[]): void {
-    this.postService.getPostsWithFilters(categories, tags).subscribe((posts) => {
-      this.totalPosts = posts
+    this.postService.getPostsWithFilters(categories, tags).subscribe({
+      next: (posts) => {
+        this.totalPosts = posts;
+      },
+      error: (error) => {
+        this.totalPosts = [];
+      }
     });
   }
   public onSearch(): void {
     if (this.filterForm.valid) {
       const filters = this.filterForm.value;
-      console.log('Filtros seleccionados:', filters);
+      const categories: number[] = this.extractIds(this.categories);
+      const tags: number[]  = this.extractIds(this.tags);
+      this.getPostsWithFilters(categories, tags);
     }
+  }
+  private extractIds(items: any[]): number[] {
+    return items.map(item => item.id ?? 0)
+      .filter(id => id !== 0);
   }
   public handleCreatePost(): void{
     this.createPostref = this.dialogService.open(CreatePostComponent, {
