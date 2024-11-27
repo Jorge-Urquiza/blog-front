@@ -1,3 +1,4 @@
+import { Category } from './category';
 export interface Post {
   name?: string;
   coverImage?: any;
@@ -11,6 +12,8 @@ export interface Post {
   code?: string;
   status?: string;
   tags?: string[];
+  createdAt?: Date;
+  category?: string;
 }
 
 export interface Comment {

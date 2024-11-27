@@ -87,7 +87,7 @@ export class PostsComponent implements OnInit {
   }
   private getPostsWithFilters(categories: number[], tags: number[]): void {
     this.postService.getPostsWithFilters(categories, tags).subscribe((posts) => {
-      console.log("posts con filtros:", posts);
+      this.totalPosts = posts
     });
   }
   public onSearch(): void {
