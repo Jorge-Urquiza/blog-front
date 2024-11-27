@@ -30,9 +30,7 @@ export class PostService {
       tags: tags
     };
     const url = `${this.apiUrl}/filters`;
-    return this.http
-      .post<any>(url, requestBody)
-      .pipe(catchError(this.handleError));
+    return this.http.post<any>(url, requestBody);
   }
 
   public getPostById(id: number): Observable<Post> {
