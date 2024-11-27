@@ -9,13 +9,15 @@ import { PostsComponent } from './posts.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { DetailPostComponent } from './components/detail-post/detail-post.component';
 import { ListCardPostComponent } from './components/list-card-post/list-card-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
     PostsComponent,
     CreatePostComponent,
     DetailPostComponent,
-    ListCardPostComponent
+    EditPostComponent,
+    ListCardPostComponent,
   ],
   imports: [
     CommonModule,

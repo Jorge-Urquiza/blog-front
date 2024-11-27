@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Post } from './models/post';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CategoryService } from './services/category.service';
+import { TagService } from './services/tag.service';
+import { Tag } from './models/tag';
+import { Category } from './models/category';
+import { PostService } from './services/post.service';
 
 @Component({
   standalone: false,
@@ -8,11 +16,15 @@ import { Post } from './models/post';
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
 })
-export class PostsComponent {
+export class PostsComponent implements OnInit {
+  public filterForm!: FormGroup;
+  public createPostref: DynamicDialogRef | undefined;
   sortOptions: SelectItem[] = [
     { label: 'Most Shared', value: 'share' },
     { label: 'Most Commented', value: 'comment' },
   ];
+  public categories: Category[] = [];
+  public tags: any[] = [];
   layout: string = 'list';
   sortField: string = '';
 
@@ -27,83 +39,86 @@ export class PostsComponent {
       share: 7,
       day: '15',
       month: 'October',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-2.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-f-2.png',
-      title: 'Magazine',
-      description:
-        'Magna iaculis sagittis, amet faucibus scelerisque non ornare non in penatibus ',
-      comment: 5,
-      share: 1,
-      day: '20',
-      month: 'Nov',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-3.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-m-1.png',
-      title: 'Science',
-      description:
-        'Purus mattis mi, libero maecenas volutpat quis a morbi arcu pharetra, mollis',
-      comment: 2,
-      share: 6,
-      day: '23',
-      month: 'Oct',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-4.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-m-1.png',
-      title: 'Blog',
-      description:
-        'Curabitur vitae sit justo facilisi nec, sodales proin aliquet libero volutpat nunc',
-      comment: 5,
-      share: 5,
-      day: '14',
-      month: 'Dec',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-5.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-f-3.png',
-      title: 'Magazine',
-      description:
-        'Id eget arcu suspendisse ullamcorper dolor lobortis dui et morbi penatibus quam',
-      comment: 4,
-      share: 1,
-      day: '05',
-      month: 'Apr',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-6.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-m-3.png',
-      title: 'Science',
-      description:
-        'Sagittis hendrerit laoreet dignissim sed auctor sit pellentesque vel diam iaculis et',
-      comment: 1,
-      share: 3,
-      day: '12',
-      month: 'Nov',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-4.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-m-1.png',
-      title: 'Blog',
-      description:
-        'Curabitur vitae sit justo facilisi nec, sodales proin aliquet libero volutpat nunc',
-      comment: 5,
-      share: 5,
-      day: '14',
-      month: 'Dec',
-    },
-    {
-      coverImage: 'assets/demo/images/blog/blog-4.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-m-1.png',
-      title: 'Blog',
-      description:
-        'Curabitur vitae sit justo facilisi nec, sodales proin aliquet libero volutpat nunc',
-      comment: 5,
-      share: 5,
-      day: '14',
-      month: 'Dec',
-    },
+    }
   ];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private postService: PostService,
+    private tagService: TagService,
+    private categoryService: CategoryService,
+    private dialogService: DialogService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.initialize();
+  }
+  private initialize(): void {
+    this.filterForm = this.formBuilder.group({
+      categories: [[]],
+      tags: [[]],
+    });
+    this.loadFilterData();
+    this.getPostsWithFilters([1], [1]);
+  }
+
+  private loadFilterData(): void{
+    this.loadCategories();
+    this.loadTags();
+  }
+
+  private loadCategories(): void {
+    this.categoryService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
+  private loadTags(): void {
+    this.tagService.getTags().subscribe((tags) => {
+      this.tags = tags;
+    });
+  }
+
+  private resetFilters(): void {
+    this.filterForm.reset();
+    this.loadFilterData();
+    this.getPostsWithFilters([1], [1]);
+  }
+  private getPostsWithFilters(categories: number[], tags: number[]): void {
+    this.postService.getPostsWithFilters(categories, tags).subscribe((posts) => {
+      console.log("posts con filtros:", posts);
+    });
+  }
+  public onSearch(): void {
+    if (this.filterForm.valid) {
+      const filters = this.filterForm.value;
+      console.log('Filtros seleccionados:', filters);
+    }
+  }
+  public handleCreatePost(): void{
+    this.createPostref = this.dialogService.open(CreatePostComponent, {
+      header: 'Crear nuevo post',
+      width: '50vw',
+      modal: true,
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw',
+      },
+    });
+    this.createPostref.onClose.subscribe((some) => {
+      if (some) {
+        // this.resetFilters();
+        // const params = this.getParamsForFilters();
+        // this.getProfessionalContracts(this.contractorCompanyId, params);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito!',
+          detail: 'Post creado exitosamente!',
+        });
+      } else {
+      }
+    });
+
+  }
 }

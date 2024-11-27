@@ -20,11 +20,6 @@ export class AppMenuComponent implements OnInit {
             routerLink: ['/posts'],
           },
           {
-            label: 'Crear post',
-            icon: 'pi pi-fw pi-plus',
-            routerLink: ['/create-post'],
-          },
-          {
             label: 'Gestionar categorias',
             icon: 'pi pi-fw pi-plus',
             routerLink: ['/categories'],

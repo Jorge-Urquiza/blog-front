@@ -3,21 +3,48 @@
     <ng-template pTemplate="header">
 
       <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between gap-3">
-
         <span class="text-xl text-900 font-semibold">Posts</span>
-        <p-dropdown
-          [options]="sortOptions"
-          [(ngModel)]="sortField"
-          placeholder="Ordenar por"
-          styleClass="w-full md:w-15rem"
-        ></p-dropdown>
-        <!-- <div class="flex justify-content-end">
-          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-      </div> -->
+        <div class="flex flex-row-reverse flex-wrap">
+          <button pButton pRipple label="Crear post"
+            (click)="handleCreatePost()"
+            class="p-button-primary px-6" icon="pi pi-plus" iconPos="right">
+          </button>
+        </div>
       </div>
-      <!-- <div class="flex justify-content-end mt-3">
-        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-      </div> -->
+
+      <div class="mt-3">
+        <form [formGroup]="filterForm" (ngSubmit)="onSearch()">
+          <p-toolbar styleClass="mb-4 flex justify-content-between">
+              <span class="flex flex-wrap gap-3">
+                  <div class="flex flex-column">
+                    <p-multiSelect class="multiselect-custom"
+                      formControlName="categories"
+                      placeholder="Seleccionar categoria"
+                      selectedItemsLabel="{0} elementos seleccionados"
+                      inputId="categories"
+                      [options]="categories"
+                      optionLabel="name"
+                      [filter]="false"
+                      [showClear]="true">
+                    </p-multiSelect>
+                  </div>
+                  <p-multiSelect class="multiselect-custom"
+                    formControlName="tags"
+                    placeholder="Seleccionar etiquetas"
+                    selectedItemsLabel="{0} elementos seleccionados"
+                    inputId="tags"
+                    [options]="tags"
+                    optionLabel="name"
+                    [filter]="false"
+                    [showClear]="true">
+                  </p-multiSelect>
+              </span>
+              <button pButton pRipple type="submit" label="Buscar" class="p-button-primary px-6"
+                  [loading]="false"></button>
+          </p-toolbar>
+        </form>
+      </div>
+
 
     </ng-template>
 
