@@ -4,6 +4,7 @@ import { LayoutService } from '@shared/components/layout/app.layout.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { IStorageInterface } from '../interfaces/login.interface';
 
 @Component({
   selector: 'app-login',
@@ -50,40 +51,33 @@ export class LoginComponent {
   public hasError(field: any, error: string) {
     return field?.errors?.[error] && (field?.dirty || field?.touched);
   }
-
-  handleFormSubmit() {
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  async handleFormSubmit() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
     const formValue = this.loginForm.value;
     this.isLoading = true;
-
-    this.authService.login(formValue).subscribe({
-      next: ({ data }) => {
-        if (!data) {
-          this.isLoading = false;
-        } else {
-          this.authService.setCurrentUser(data);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Éxito',
-            detail: 'Sesión iniciada correctamente',
-          });
-          setTimeout(() => {
-            this.redirectHomePage();
-          }, 2000);
-        }
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `${error.error.message}`,
-        });
-        this.isLoading = false;
-      },
+    await this.sleep(3000)
+    this.isLoading = false;
+    const payload = {
+      id: 1,
+      email: "jorge@test.com",
+      token: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9'
+    }
+    this.authService.setCurrentUser(payload);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: 'Sesión iniciada correctamente',
     });
+
+    setTimeout(() => {
+      this.redirectHomePage();
+    }, 2000);
   }
 
   redirectHomePage() {

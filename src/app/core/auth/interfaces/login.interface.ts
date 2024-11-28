@@ -9,7 +9,6 @@ interface IloginResponse {
 interface IStorageInterface {
   id: number;
   token: string;
-  contractorCompanyId: number;
   email: string;
 }
 
