@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Post } from '../models/post';
 import { environment } from 'environments/environment';
+import { PostRequest } from '../models/post-request';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  public create(post: Post): Observable<Post> {
+  public create(post: PostRequest): Observable<Post> {
     return this.http
       .post<Post>(this.apiUrl, post)
       .pipe(catchError(this.handleError));
@@ -24,7 +25,7 @@ export class PostService {
     return this.http.put<Post>(url, post).pipe(catchError(this.handleError));
   }
 
-  public getPostsWithFilters(categories: number[], tags: number[]): Observable<any> {
+  public getPostsWithFilters(categories: number[] | null, tags: number[] | null): Observable<any> {
     const requestBody = {
       categories: categories,
       tags: tags

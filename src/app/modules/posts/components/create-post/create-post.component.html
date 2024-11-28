@@ -1,1 +1,95 @@
-<p>create-post works!</p>
+<div class="card">
+  <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+      <div class="col-12 lg:col-12">
+        <p-fileUpload
+          #fileUploader
+          name="demo[]"
+          [customUpload]="true"
+          [multiple]="false"
+          accept="image/*"
+          [showUploadButton]="false"
+          [showCancelButton]="false"
+          styleClass="border-1 surface-border surface-card p-0 border-round mb-4">
+          <ng-template pTemplate="content">
+            <div class="h-20rem m-1 border-round">
+              <div *ngIf="!image" class="flex flex-column w-full h-full justify-content-center align-items-center cursor-pointer">
+                <input type="file" accept="image/*" hidden #fileInput (change)="handleFileInput($event)" />
+                <button
+                  type="button"
+                  class="p-button p-button-text text-primary"
+                  (click)="fileInput.click()"
+                >
+                  Selecciona una imagen
+                </button>
+              </div>
+              <div *ngIf="image" class="w-full h-full relative border-round p-0">
+                <img [src]="objectURL" class="w-full h-full border-round" alt="blog cover" />
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-times"
+                  class="p-button-rounded p-button-primary text-sm absolute justify-content-center align-items-center"
+                  style="top: -10px; right: -10px"
+                  (click)="removeImage()"
+                ></button>
+              </div>
+            </div>
+          </ng-template>
+        </p-fileUpload>
+        <div class="flex flex-column p-fluid">
+          <div class="mb-4">
+            <input type="text" pInputText placeholder="Titulo*" formControlName="title" />
+          </div>
+          <div class="mb-4">
+            <textarea rows="6" pInputTextarea placeholder="Descripción*" formControlName="description" [autoResize]="true"></textarea>
+          </div>
+          <p-editor formControlName="content"  [style]="{ height: '250px' }"></p-editor>
+        </div>
+      </div>
+      <div class="col-12 lg:col-12">
+        <div class="border-1 surface-border border-round mb-4">
+          <span class="text-900 font-bold block border-bottom-1 surface-border p-3">Opciones</span>
+
+          <div class="flex gap-3">
+            <div class="flex-1 mt-3 ml-3 mb-3">
+              <p-dropdown
+                formControlName="category"
+                [options]="categories"
+                optionLabel="name"
+                placeholder="Seleccionar categoría">
+              </p-dropdown>
+            </div>
+            <div class="flex-1 mt-3 ml-3 mb-3">
+              <p-multiSelect class="multiselect-custom"
+                (onChange)="handleTags($event)"
+                formControlName="tags"
+                placeholder="Seleccionar etiquetas*"
+                selectedItemsLabel="{0} elementos seleccionados"
+                inputId="tags"
+                [options]="tags"
+                optionLabel="name"
+                [filter]="false"
+                (onClear)="handleTagsClear($event)"
+                [showClear]="true">
+              </p-multiSelect>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 lg:col-12">
+        <div class="border-1 surface-border border-round mb-4">
+          <span class="text-900 font-bold block border-bottom-1 surface-border p-3">Tags</span>
+          <div class="p-3 flex gap-2">
+            <div *ngIf="tagsList.length === 0">
+              <span>No se seleccionaron etiquetas</span>
+            </div>
+            <div *ngIf="tagsList.length > 0">
+              <p-chip *ngFor="let tag of tagsList; let i = index" [label]="tag"></p-chip>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" pButton label="Guardar Post" class="mt-4"></button>
+  </form>
+</div>

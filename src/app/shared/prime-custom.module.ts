@@ -51,12 +51,14 @@ import { TabMenuModule } from 'primeng/tabmenu';
 
 import { ChartModule } from 'primeng/chart';
 import { ProgressBarModule } from 'primeng/progressbar';
-
+import { ChipModule } from 'primeng/chip';
 import { MenubarModule } from 'primeng/menubar';
+import { EditorModule } from 'primeng/editor'
 
 const PRIME_MODULES = [
   CalendarModule,
   CarouselModule,
+  ChipModule,
   CommonModule,
   BadgeModule,
   ButtonModule,
@@ -64,6 +66,7 @@ const PRIME_MODULES = [
   DropdownModule,
   DataViewModule,
   DynamicDialogModule,
+  EditorModule,
   FileUploadModule,
   InputNumberModule,
   InputMaskModule,
