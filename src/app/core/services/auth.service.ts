@@ -29,9 +29,6 @@ export class AuthService {
     this.router.navigate(['/auth']);
   }
 
-  public getContractorCompany(): number {
-    return this.getCurrentUser()?.contractorCompanyId ?? 0;
-  }
   public getUserId(): number {
     return this.getCurrentUser()?.id ?? 0;
   }
