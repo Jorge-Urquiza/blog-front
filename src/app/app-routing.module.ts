@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-// import { AuthGuard } from '@core/guards/auth.guard';
+import { AuthGuard } from '@core/guards/auth.guard';
 import { AppLayoutComponent } from '@shared/components/layout/app.layout.component';
 
 const routerOptions: ExtraOptions = {
@@ -16,6 +16,7 @@ const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'posts',
