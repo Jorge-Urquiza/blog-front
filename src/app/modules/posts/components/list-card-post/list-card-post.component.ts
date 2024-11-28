@@ -13,7 +13,9 @@ export class ListCardPostComponent {
   constructor(private router: Router) {}
 
   navigateToDetail(): void {
-    this.router.navigateByUrl('/apps/blog/detail');
+    const url = ['/detail', this.post.id];
+    console.log('Navegando a:', url);
+    this.router.navigate(['/posts/detail', this.post.id]);
   }
   public getRandomNumber(): number {
     const min: number = 0;

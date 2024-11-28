@@ -19,28 +19,12 @@ import { PostService } from './services/post.service';
 export class PostsComponent implements OnInit {
   public filterForm!: FormGroup;
   public createPostref: DynamicDialogRef | undefined;
-  sortOptions: SelectItem[] = [
-    { label: 'Most Shared', value: 'share' },
-    { label: 'Most Commented', value: 'comment' },
-  ];
   public categories: Category[] = [];
   public tags: any[] = [];
   layout: string = 'list';
   sortField: string = '';
 
-  totalPosts: Post[] = [
-    {
-      coverImage: 'assets/demo/images/blog/blog-1.png',
-      profile: 'assets/demo/images/avatar/circle/avatar-f-1.png',
-      title: 'Blog',
-      description:
-        'Ornare egestas pellentesque facilisis in a ultrices erat diam metus integer sed',
-      comment: 2,
-      share: 7,
-      day: '15',
-      month: 'October',
-    }
-  ];
+  totalPosts: Post[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +44,7 @@ export class PostsComponent implements OnInit {
       tags: [[]],
     });
     this.loadFilterData();
-    this.getPostsWithFilters([], []);
+    this.getPostsWithFilters(null, null);
   }
 
   private loadFilterData(): void{
@@ -82,10 +66,8 @@ export class PostsComponent implements OnInit {
 
   private resetFilters(): void {
     this.filterForm.reset();
-    this.loadFilterData();
-    this.getPostsWithFilters([1], [1]);
   }
-  private getPostsWithFilters(categories: number[], tags: number[]): void {
+  private getPostsWithFilters(categories: number[] | null, tags: number[] | null): void {
     this.postService.getPostsWithFilters(categories, tags).subscribe({
       next: (posts) => {
         this.totalPosts = posts;
@@ -96,16 +78,23 @@ export class PostsComponent implements OnInit {
     });
   }
   public onSearch(): void {
-    if (this.filterForm.valid) {
-      const filters = this.filterForm.value;
-      const categories: number[] = this.extractIds(this.categories);
-      const tags: number[]  = this.extractIds(this.tags);
-      this.getPostsWithFilters(categories, tags);
+    if (this.filterForm.invalid) {
+      return;
     }
+
+    const filters = this.filterForm.value;
+    const categoriesOrNull = this.formatFilterToNullIfEmpty(filters.categories);
+    const tagsOrNull = this.formatFilterToNullIfEmpty(filters.tags);
+
+    this.getPostsWithFilters(categoriesOrNull, tagsOrNull);
+  }
+
+  private formatFilterToNullIfEmpty(filter: any[]): number[] | null {
+    const ids = this.extractIds(filter);
+    return ids.length === 0 ? null : ids;
   }
   private extractIds(items: any[]): number[] {
-    return items.map(item => item.id ?? 0)
-      .filter(id => id !== 0);
+    return items?.map(item => item.id) || [];
   }
   public handleCreatePost(): void{
     this.createPostref = this.dialogService.open(CreatePostComponent, {
@@ -119,9 +108,8 @@ export class PostsComponent implements OnInit {
     });
     this.createPostref.onClose.subscribe((some) => {
       if (some) {
-        // this.resetFilters();
-        // const params = this.getParamsForFilters();
-        // this.getProfessionalContracts(this.contractorCompanyId, params);
+        this.resetFilters();
+        this.getPostsWithFilters(null, null);
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito!',

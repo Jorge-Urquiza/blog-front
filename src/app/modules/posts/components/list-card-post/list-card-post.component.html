@@ -1,8 +1,8 @@
 <div class="p-3">
   <div class="border-1 surface-border cursor-pointer z-index border-round" (click)="navigateToDetail()">
       <div class="relative">
-          <img [src]="'assets/demo/images/blog/blog-1.png'" class="w-full" />
-          <img [src]="post.profile" class="flex absolute w-4rem h-4rem" style="bottom: -1.5rem; right: 1.5rem" />
+          <img [src]="post.frontpage" class="w-full" />
+          <img [src]="'assets/demo/images/avatar/circle/avatar-f-2.png'" class="flex absolute w-4rem h-4rem" style="bottom: -1.5rem; right: 1.5rem" />
       </div>
       <div class="p-4">
           <div class="text-900 font-semibold text-xl mb-3">{{ post.title | uppercase  }}</div>
@@ -12,11 +12,11 @@
           <div class="flex flex-wrap gap-2 align-items-center justify-content-between">
               <span class="flex align-items-center text-900">
                   <i class="pi pi-comment mr-2"></i>
-                  <span class="font-semibold">{{ getRandomNumber() }}</span>
+                  <span class="font-semibold">{{ 2}}</span>
               </span>
               <span class="flex align-items-center text-900">
                   <i class="pi pi-share-alt mr-2"></i>
-                  <span class="font-semibold">{{ getRandomNumber() }}</span>
+                  <span class="font-semibold">{{ 2 }}</span>
               </span>
               <span class="flex align-items-center text-900">
                   <i class="pi pi-clock mr-2"></i>
