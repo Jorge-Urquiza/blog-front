@@ -11,14 +11,6 @@ const routes: Routes = [
     path: '',
     component: PostsComponent,
   },
-  // {
-  //   path: 'create',
-  //   component: CreatePostComponent,
-  // },
-  // {
-  //   path: 'edit/:id',
-  //   component: EditPostComponent,
-  // },
   {
     path: 'detail/:id',
     component: DetailPostComponent
