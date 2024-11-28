@@ -115,7 +115,6 @@ export class PostsComponent implements OnInit {
           summary: 'Éxito!',
           detail: 'Post creado exitosamente!',
         });
-      } else {
       }
     });
 

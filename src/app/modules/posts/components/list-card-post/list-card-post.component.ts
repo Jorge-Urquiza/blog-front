@@ -9,17 +9,19 @@ import { Post } from '@modules/posts/models/post';
 })
 export class ListCardPostComponent {
   @Input() post!: Post;
+  public randomComments: number;
+  public randomShares: number;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.randomComments = this.getRandomNumber(1, 10);
+    this.randomShares = this.getRandomNumber(0, 5);
+  }
 
   navigateToDetail(): void {
     const url = ['/detail', this.post.id];
-    console.log('Navegando a:', url);
     this.router.navigate(['/posts/detail', this.post.id]);
   }
-  public getRandomNumber(): number {
-    const min: number = 0;
-    const max: number = 10;
+  public getRandomNumber(min: number, max: number ): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 

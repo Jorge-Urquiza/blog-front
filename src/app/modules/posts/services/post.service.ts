@@ -42,7 +42,7 @@ export class PostService {
 
   public delete(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url).pipe(catchError(this.handleError));
+    return this.http.delete<void>(url);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

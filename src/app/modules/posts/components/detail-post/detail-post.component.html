@@ -1,1 +1,31 @@
-<p>detail-post works!</p>
+<p-confirmDialog key="deleteConfirmationDialog" />
+<p-toast [life]="10000"></p-toast>
+<div class="card" *ngIf="post">
+  <div class="flex justify-content-between flex-column-reverse md:flex-row align-items-center">
+      <div>
+          <div class="text-xl text-900 mb-4 mt-4 md:mt-0 text-center md:text-left font-semibold md:pr-4">{{ post.title }}</div>
+          <p>{{ post.description }}</p>
+          <div class="flex flex-wrap justify-content-center md:justify-content-start gap-3">
+              <span class="inline-flex align-items-center py-2 px-3 font-medium border-1 surface-border border-round">
+                  <i class="pi pi-clock text-primary mr-2"></i>
+                  <span class="text-900">{{ post.createdAt | date: 'd \'de\' MMMM \'de\' y' }}</span>
+              </span>
+          </div>
+      </div>
+      <div class="flex flex-column align-items-center justify-content-center">
+          <img class="w-4rem h-4rem" src="assets/demo/images/avatar/circle/avatar-f-2@2x.png" />
+          <span class="mt-3 font-bold text-900 text-center white-space-nowrap">Jane Cooper</span>
+      </div>
+  </div>
+  <div class="text-center my-6">
+      <img [src]="post.frontpage" alt="Image" class="w-full" />
+  </div>
+
+  <div [innerHTML]="post.content"></div>
+  <div class="flex flex-column sm:flex-row my-8 w-full gap-3">
+      <button pButton pRipple icon="pi pi-twitter" class="p-button-secondary" label="Twitter"></button>
+      <button pButton pRipple icon="pi pi-facebook" class="p-button-secondary" label="Facebook"></button>
+      <button pButton pRipple icon="pi pi-trash"  class="p-button-danger" class="sm:ml-auto" label="Eliminar Post"  (click)="handleDeletePost($event)"></button>
+  </div>
+    <app-new-comment></app-new-comment>
+</div>

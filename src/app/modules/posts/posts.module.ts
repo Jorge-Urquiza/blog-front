@@ -10,6 +10,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { DetailPostComponent } from './components/detail-post/detail-post.component';
 import { ListCardPostComponent } from './components/list-card-post/list-card-post.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { NewCommentComponent } from './components/new-comment/new-comment.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     DetailPostComponent,
     EditPostComponent,
     ListCardPostComponent,
+    NewCommentComponent
   ],
   imports: [
     CommonModule,
