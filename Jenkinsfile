@@ -9,7 +9,7 @@ pipeline {
         stage('Clonar repositorio') {
             steps {
                 git branch: 'pipeline',
-                url: 'https://github.com/tu-usuario/landing-angular17.git',
+                url: 'https://github.com/tu-usuario/landing-angular17.git'
             }
         }
 
