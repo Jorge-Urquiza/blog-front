@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clonar repositorio') {
             steps {
-                git branch: 'main',
+                git branch: 'pipeline',
                 url: 'https://github.com/tu-usuario/landing-angular17.git',
             }
         }
@@ -40,6 +40,8 @@ pipeline {
 
                     echo "Iniciando Nginx..."
                     net start nginx
+
+                    echo "Despliegue completado ✅"
                 '''
             }
         }
