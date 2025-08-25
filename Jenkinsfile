@@ -26,14 +26,14 @@ pipeline {
                 stage('Desplegar DEV') {
                     steps {
                         bat '''
-                            echo "🚀 Desplegando en ambiente DEV..."
+                            echo "Desplegando en ambiente DEV..."
                             echo "Creando carpeta dev..."
                             if not exist "C:\\nginx\\html\\dev" mkdir "C:\\nginx\\html\\dev"
 
                             echo "Copiando archivos a dev..."
                             xcopy /Y "www\\browser\\*" "C:\\nginx\\html\\dev\\" /E
 
-                            echo "✅ DEV desplegado en: http://localhost/dev/"
+                            echo "DEV desplegado en: http://localhost/dev/"
                         '''
                     }
                 }
@@ -41,14 +41,14 @@ pipeline {
                 stage('Desplegar STAGING') {
                     steps {
                         bat '''
-                            echo "🚀 Desplegando en ambiente STAGING..."
+                            echo "Desplegando en ambiente STAGING..."
                             echo "Creando carpeta staging..."
                             if not exist "C:\\nginx\\html\\staging" mkdir "C:\\nginx\\html\\staging"
 
                             echo "Copiando archivos a staging..."
                             xcopy /Y "www\\browser\\*" "C:\\nginx\\html\\staging\\" /E
 
-                            echo "✅ STAGING desplegado en: http://localhost/staging/"
+                            echo "STAGING desplegado en: http://localhost/staging/"
                         '''
                     }
                 }
@@ -63,7 +63,7 @@ pipeline {
                             echo "Copiando archivos a test..."
                             xcopy /Y "www\\browser\\*" "C:\\nginx\\html\\test\\" /E
 
-                            echo "✅ TEST desplegado en: http://localhost/test/"
+                            echo "TEST desplegado en: http://localhost/test/"
                         '''
                     }
                 }
@@ -73,13 +73,10 @@ pipeline {
 
     post {
         success {
-            echo '🎉 ¡Despliegue paralelo exitoso!'
-            echo '🔗 DEV: http://localhost/dev/'
-            echo '🔗 STAGING: http://localhost/staging/'
-            echo '🔗 TEST: http://localhost/test/'
+            echo 'Despliegue paralelo exitoso!'
         }
         failure {
-            echo '❌ Error en el despliegue paralelo'
+            echo 'Error en el despliegue paralelo'
         }
     }
 }
